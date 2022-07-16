@@ -7,10 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -105,10 +102,6 @@ public class SrvlUser extends HttpServlet {
     private User editUser(String username, String name, String lastName, String email, String password) {
         for(int i = 0; i < this.USERS.size(); i++){
             if(this.USERS.get(i).getUsername().equals(username)){
-                this.USERS.get(i).setName(name);
-                this.USERS.get(i).setLastName(lastName);
-                this.USERS.get(i).setEmail(email);
-                this.USERS.get(i).setPassword(password);
                 return this.USERS.get(i);
             }
         }
@@ -126,9 +119,7 @@ public class SrvlUser extends HttpServlet {
             out.print("Usuario que se va a eliminar:");
             out.print(gson.toJson(user) + "\n");
 
-            USERS.remove(USERS.size()-1);
-
-            out.print("La lista después de borrar el usuario: "+ "\n");
+            this.USERS.remove(user);
             out.print(gson.toJson(this.USERS));
         }else{
             if(USERS.isEmpty()){
